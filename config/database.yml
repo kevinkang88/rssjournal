@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: rssjournal_development
+test:
+  <<: *default
+  database: rssjournal_test
+production:
+  <<: *default
+  database: rssjournal_production
+  # username: #Set these when you deploy
+  # password:
