@@ -1,7 +1,25 @@
 Rssjournal::Application.routes.draw do
+  get "readers/index"
+
+  get "readers/show"
+
+  get "readers/new"
+
+  get "readers/edit"
+
+  get "stories/index"
+
+  get "stories/show"
+
+  get "stories/new"
+
+  get "stories/edit"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
-
+  root :to => "stories#index"
+  resources :stories
+  resources :readers
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
