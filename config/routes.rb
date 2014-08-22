@@ -1,4 +1,10 @@
 Rssjournal::Application.routes.draw do
+  get "comments/create"
+
+  get "sessions/create"
+
+  get "sessions/destroy"
+
   get "readers/index"
 
   get "readers/show"
@@ -18,8 +24,22 @@ Rssjournal::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
   root :to => "stories#index"
-  resources :stories
   resources :readers
+  resources :sessions, only: [:destroy, :create]
+  resources :stories do
+    resources :comments
+  end
+
+# Google OmniAuth
+  get 'google/create'
+  get 'google/destroy'
+  get 'auth/:provider/callback', to: 'google#create'
+  get 'auth/failure', to: redirect('/')
+  get 'gsignout', to: 'google#destroy', as: 'gsignout'
+
+  resources :google, only: [:create, :destroy]
+
+
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
